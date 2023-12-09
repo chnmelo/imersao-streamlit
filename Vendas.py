@@ -3,25 +3,12 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from streamlit_extras.metric_cards import style_metric_cards
-import locale
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 @st.cache_data
 def carregar_dados():
     df = pd.read_excel("Vendas.xlsx")
     
     return df
-
-def format_money(res) -> str:
-    """
-    Given some int, convert it to currency
-    Args:
-        res (int): Money input as int
-    Returns:
-        str: Currency as string
-    """
-    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
-    return locale.currency(res, grouping=True)
 
 def main():
     
@@ -41,12 +28,12 @@ def main():
     col1,col2,col3 = st.columns(3)
     
     with col1:
-        total_custo = format_money(df_filtrado["Custo"].sum())
+        total_custo = f'{df_filtrado["Custo"].sum():,.2f}'
         st.metric("Total Custo", f"{total_custo}")
         #col1.metric("Total", f"R$ {total_custo[:2]}.{total_custo[2:5]}.{total_custo[5:]}")
     
     with col2:
-        total_lucro = format_money(df_filtrado["Lucro"].sum())
+        total_lucro = f'{df_filtrado["Lucro"].sum():,.2f}'
         st.metric("Total Lucro", f"{total_lucro}")
         #col2.metric("Total", f"R$ {total_lucro[:2]}.{total_lucro[2:5]}.{total_lucro[5:]}")
         
