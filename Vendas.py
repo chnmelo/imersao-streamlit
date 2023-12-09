@@ -4,7 +4,7 @@ import numpy as np
 import plotly.express as px
 from streamlit_extras.metric_cards import style_metric_cards
 import locale
-locale.setlocale(locale.LC_ALL, 'pt_BR')
+locale.setlocale(locale.LC_ALL, '')
 
 @st.cache_data
 def carregar_dados():
