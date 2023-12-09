@@ -12,6 +12,17 @@ def carregar_dados():
     
     return df
 
+def format_money(res) -> str:
+    """
+    Given some int, convert it to currency
+    Args:
+        res (int): Money input as int
+    Returns:
+        str: Currency as string
+    """
+    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+    return locale.currency(res, grouping=True)
+
 def main():
     
     st.set_page_config(page_title="Imersão", layout="wide")
@@ -30,12 +41,12 @@ def main():
     col1,col2,col3 = st.columns(3)
     
     with col1:
-        total_custo = locale.currency(df_filtrado["Custo"].sum(), grouping=True )
+        total_custo = format_money(df_filtrado["Custo"].sum())
         st.metric("Total Custo", f"{total_custo}")
         #col1.metric("Total", f"R$ {total_custo[:2]}.{total_custo[2:5]}.{total_custo[5:]}")
     
     with col2:
-        total_lucro = locale.currency(df_filtrado["Lucro"].sum(), grouping=True )
+        total_lucro = format_money(df_filtrado["Lucro"].sum())
         st.metric("Total Lucro", f"{total_lucro}")
         #col2.metric("Total", f"R$ {total_lucro[:2]}.{total_lucro[2:5]}.{total_lucro[5:]}")
         
